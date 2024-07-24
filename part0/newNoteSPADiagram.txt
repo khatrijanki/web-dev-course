@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant browser
+    participant server
+    participant user
+
+    user->>browser: Enters "Test Note" in input field and hits save
+
+    The JavaScript code prevents the default handling of form's submit. 
+    It adds the new note to the notes list, renders the list on the page and sends the new note to the server.
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+        Payload: {content: "Test note", date: "2024-07-24T02:29:49.496Z"}
+    activate server
+    server->>browser: HTTP Status Code 201 Created. 
+

@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant browser
+    participant server
+    participant user
+
+    user->>browser: Enters "New Note Test" in input field and hits save
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+        Payload: {note: New Note Test}
+    activate server
+    server adds the new note to the existing list
+    server->>browser: HTTP Status Code 302 (URL Redirect to /exampleapp/notes)
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server->>browser: HTML Document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server->>browser: css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server->>browser: JavaScript file
+    deactivate server
+
+    The JavaScript code fetches the json file that contains the list of notes.
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server->>browser: json file
+    deactivate server
+
+    The browser renders the json file and presents it as a list (as per the JavaScript code).
